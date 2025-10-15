@@ -1,6 +1,5 @@
-// Простейший Vercel backend
+// Основной файл для Vercel
 export default function handler(req, res) {
-  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-goog-api-key');
@@ -10,7 +9,10 @@ export default function handler(req, res) {
     return;
   }
 
-  // Простой тест
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   res.status(200).json({ 
     message: 'Backend работает!',
     method: req.method,
